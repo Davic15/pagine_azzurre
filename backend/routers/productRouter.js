@@ -201,6 +201,7 @@ productRouter.put(
       product.section = req.body.section;
       product.isService = req.body.isService;
       product.pause = req.body.pause;
+      product.isGift = req.body.IsGift;
       product.auxPhone = req.body.auxPhone;
       product.delivery = req.body.delivery;
       product.expiry = req.body.expiry;

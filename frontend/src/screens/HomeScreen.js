@@ -89,6 +89,12 @@ export default function HomeScreen() {
         {/* )} */}
         <h1 className="row center">ULTIME ATTIVITÀ</h1>
         <div className="row center">
+        <button
+            className={section === "dono" ? "filter active" : "filter"}
+            onClick={() => setSection("dono")}
+          >
+            Dono/Tempo
+          </button>
           <button
             className={section === "offro" ? "filter active" : "filter"}
             onClick={() => setSection("offro")}
