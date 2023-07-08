@@ -48,18 +48,11 @@ export default function HomeScreen() {
     var expDate = new Date(expTime);
     var curDate = new Date();
     if (expTime === null) {
-      //setPause(false);
-      
-      console.log('a')
       return false
     } 
     if (curDate.getTime() < expDate.getTime()) {
-      //setPause(false)
-      console.log("here1")
       return true
     } else {
-      //setPause(true)
-      console.log('here2')
       return false
     }
   }
