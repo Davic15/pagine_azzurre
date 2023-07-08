@@ -67,19 +67,19 @@ export default function ProductEditScreen(props) {
       //setExpiry(`${day}/${month}/${year}`)
 
       var expDate = new Date(expiry)
-    var curDate = new Date()
-    if (expiry === null) {
-      setPause(false);
-      console.log('a')
-    } 
+      var curDate = new Date()
+      if (expiry === null) {
+        setPause(false);
+        console.log('a')
+      } 
 
-    if (curDate.getTime() < expDate.getTime()) {
-      setPause(false)
-      console.log("here1")
-    } else {
-      setPause(true)
-      console.log('here2')
-    }
+      if (curDate.getTime() < expDate.getTime()) {
+        setPause(false)
+        console.log("here1")
+      } else {
+        setPause(true)
+        console.log('here2')
+      }
 
       setExpiry(expiry)
     }
@@ -571,7 +571,7 @@ export default function ProductEditScreen(props) {
             )}
 
             <div>
-              <label htmlFor="expiry">Data di scadenza annuncio*</label>
+              <label htmlFor="expiry">Data di scadenza annuncio (Si prega di scegliere una data per disattivare l'annuncio.)*</label>
               {/*<DayPickerInput
                 parseDate={parseDate}
                 format={CalFORMAT}
