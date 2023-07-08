@@ -128,17 +128,17 @@ export default function ProductEditScreen(props) {
 
       if (product.expiry === null) {
         setPause(false);
-        console.log('a')
+        //console.log('a')
       } 
 
       if (curDate.getTime() < expDate.getTime()) {
         setPause(false)
-        console.log("here1")
+        //console.log("here1")
       } else {
         setPause(true)
-        console.log('here2')
+        //console.log('here2')
       }
-      console.log(product.pause)
+      //console.log(product.pause)
 
       setCountry(product.country);
       setState(product.state);

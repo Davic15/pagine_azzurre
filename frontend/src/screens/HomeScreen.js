@@ -42,6 +42,28 @@ export default function HomeScreen() {
     dispatch(listProducts({ pageNumber }));
     // dispatch(listTopSellers());
   }, [dispatch]);
+
+
+  const checkExpiredTime = (expTime) => {
+    var expDate = new Date(expTime);
+    var curDate = new Date();
+    if (expTime === null) {
+      //setPause(false);
+      
+      console.log('a')
+      return false
+    } 
+    if (curDate.getTime() < expDate.getTime()) {
+      //setPause(false)
+      console.log("here1")
+      return true
+    } else {
+      //setPause(true)
+      console.log('here2')
+      return false
+    }
+  }
+
   return (
     <div>
       <WelcomeBanner />
@@ -134,7 +156,7 @@ export default function HomeScreen() {
                 // const isExpired = expired.getTime() <= now
                 return (
                   // !product.name.match(/Annunciø/) &&
-                  product.section === section &&
+                  product.section === section && checkExpiredTime(product.expiry) &&
                   !product.pause && (
                     <Product key={product._id} product={product}></Product>
                   )
