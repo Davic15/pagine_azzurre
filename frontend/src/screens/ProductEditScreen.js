@@ -5,11 +5,21 @@ import { detailsProduct, updateProduct } from "../actions/productActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { PRODUCT_UPDATE_RESET } from "../constants/productConstants";
-// import DayPickerInput from 'react-day-picker/DayPickerInput'
-// import { DateUtils } from 'react-day-picker'
-// import dateFnsFormat from 'date-fns/format'
-// import dateFnsParse from 'date-fns/parse'
+
+// Aqui
+import DayPickerInput from 'react-day-picker/DayPickerInput'
+import { DateUtils } from 'react-day-picker'
+import dateFnsFormat from 'date-fns/format'
+import dateFnsParse from 'date-fns/parse'
+
+import MomentLocaleUtils, {
+  formatDate,
+  parseDate
+} from 'react-day-picker/moment';
+
 import "react-day-picker/lib/style.css";
+
+//Aqui
 
 export default function ProductEditScreen(props) {
   const productId = props.match.params.id;
@@ -33,27 +43,49 @@ export default function ProductEditScreen(props) {
   const [image, setImage] = useState([]);
   const [isGift, setIsGift]= useState("")
 
-  // function parseDate(str, format, locale) {
-  //   const parsed = dateFnsParse(str, format, new Date(), { locale });
-  //   if (DateUtils.isDate(parsed)) {
-  //     return parsed
-  //   }
-  //   return undefined
-  // }
+  // Aqui
+  function parseDate(str, format, locale) {
+    const parsed = dateFnsParse(str, format, new Date(), { locale });
+    //console.log(parsed)
+    if (DateUtils.isDate(parsed)) {
+      return parsed
+    }
+    return undefined
+  }
 
-  // function formatDate(date, format, locale) {
-  //   return dateFnsFormat(date, format, { locale })
-  // }
+  function formatDate(date, format, locale) {
+    return dateFnsFormat(date, format, { locale })
+  }
 
-  // const GetFormattedDate = (expiry) => {
-  //   if (typeof expiry === 'object') {
-  //     var day = expiry.getDate()
-  //     var month = expiry.getMonth() + 1
-  //     var year = expiry.getFullYear()
-  //     setExpiry(`${day}/${month}/${year}`)
-  //   }
-  // }
-  // const CalFORMAT = 'dd/MM/yyyy'
+  const GetFormattedDate = (expiry) => {
+    console.log( typeof expiry)
+    if (typeof expiry === 'object') {
+      var day = expiry.getDate()
+      var month = expiry.getMonth() + 1
+      var year = expiry.getFullYear()
+      //console.log(`${day}/${month}/${year}`)
+      //setExpiry(`${day}/${month}/${year}`)
+
+      var expDate = new Date(expiry)
+    var curDate = new Date()
+    if (expiry === null) {
+      setPause(false);
+      console.log('a')
+    } 
+
+    if (curDate.getTime() < expDate.getTime()) {
+      setPause(false)
+      console.log("here1")
+    } else {
+      setPause(true)
+      console.log('here2')
+    }
+
+      setExpiry(expiry)
+    }
+  }
+  const CalFORMAT = 'dd/MM/yyyy'
+  // Aqui
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
@@ -87,8 +119,27 @@ export default function ProductEditScreen(props) {
       setIsService(product.isService);
       setAuxPhone(product.auxPhone);
       setDelivery(product.delivery);
+      
+      //aqui
+
+      var expDate = new Date(product.expiry)
       setExpiry(product.expiry);
-      setPause(product.pause);
+      var curDate = new Date()
+
+      if (product.expiry === null) {
+        setPause(false);
+        console.log('a')
+      } 
+
+      if (curDate.getTime() < expDate.getTime()) {
+        setPause(false)
+        console.log("here1")
+      } else {
+        setPause(true)
+        console.log('here2')
+      }
+      console.log(product.pause)
+
       setCountry(product.country);
       setState(product.state);
       setCity(product.city);
@@ -518,17 +569,29 @@ export default function ProductEditScreen(props) {
                 </select>
               </div>
             )}
-            {/* <div>
+
+            <div>
               <label htmlFor="expiry">Data di scadenza annuncio*</label>
-              <DayPickerInput
+              {/*<DayPickerInput
                 parseDate={parseDate}
                 format={CalFORMAT}
                 formatDate={formatDate}
                 value={expiry}
                 placeholder={`${dateFnsFormat(new Date(), CalFORMAT)}`}
                 onDayChange={(e)=>GetFormattedDate(e)}
+              />*/}
+              <DayPickerInput
+                formatDate={formatDate}
+                format={CalFORMAT}
+                parseDate={parseDate}
+                placeholder={`${dateFnsFormat(new Date(), CalFORMAT)}`}
+                onDayChange={(e) => GetFormattedDate(e)}
+                value={expiry}
               />
-            </div> */}
+
+
+            </div> 
+
             <div>
               <label htmlFor="description">Descrizione</label>
               <textarea
